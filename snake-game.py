@@ -67,6 +67,10 @@ def game_loop():
     food_x = round(random.randrange(0, WIDTH - BLOCK_SIZE) / 10.0) * 10.0
     food_y = round(random.randrange(0, HEIGHT - BLOCK_SIZE) / 10.0) * 10.0
 
+    # Reward variables
+    food_counter = 0
+    rewards = []  # List to hold active rewards: each reward is a dict with x, y, spawn_time
+
     while not game_over:
 
         while game_close:
@@ -129,14 +133,40 @@ def game_loop():
         draw_snake(BLOCK_SIZE, snake_list)
         display_score(snake_length - 1)
 
-        # Update the display
-        pygame.display.update()
-
         # Check if the snake eats the food
         if x == food_x and y == food_y:
             food_x = round(random.randrange(0, WIDTH - BLOCK_SIZE) / 10.0) * 10.0
             food_y = round(random.randrange(0, HEIGHT - BLOCK_SIZE) / 10.0) * 10.0
             snake_length += 1
+            food_counter += 1
+            if food_counter >= 10:
+                # Spawn a new reward
+                new_reward = {
+                    'x': round(random.randrange(0, WIDTH - BLOCK_SIZE) / 10.0) * 10.0,
+                    'y': round(random.randrange(0, HEIGHT - BLOCK_SIZE) / 10.0) * 10.0,
+                    'spawn_time': pygame.time.get_ticks()
+                }
+                rewards.append(new_reward)
+                food_counter = 0  # Reset counter
+
+        # Process rewards: check expiration and collisions
+        current_time = pygame.time.get_ticks()
+        for reward in rewards.copy():
+            # Check if reward has expired (10 seconds)
+            if current_time - reward['spawn_time'] >= 10000:
+                rewards.remove(reward)
+            else:
+                # Check collision with snake head
+                if x == reward['x'] and y == reward['y']:
+                    snake_length += 10  # Increase score by 10
+                    rewards.remove(reward)
+
+        # Draw all active rewards
+        for reward in rewards:
+            pygame.draw.rect(game_window, BLUE, [reward['x'], reward['y'], BLOCK_SIZE, BLOCK_SIZE])
+
+        # Update the display
+        pygame.display.update()
 
         # Control the game speed
         clock.tick(SNAKE_SPEED)
