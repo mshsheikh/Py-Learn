@@ -70,7 +70,7 @@ def game_loop():
     while not game_over:
 
         while game_close:
-            game_window.fill(BLUE)
+            game_window.fill(BLACK)
             display_message("You Lost! Press Q-Quit or C-Play Again", RED)
             display_score(snake_length - 1)
             pygame.display.update()
