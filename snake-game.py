@@ -28,13 +28,26 @@ BLOCK_SIZE = 10
 SNAKE_SPEED = 15
 
 # Define fonts for displaying messages
-FONT_STYLE = pygame.font.SysFont("bahnschrift", 25)
-SCORE_FONT = pygame.font.SysFont("comicsansms", 35)
+FONT_STYLE = pygame.font.SysFont("bahnschrift", 20)
+SCORE_FONT = pygame.font.SysFont("comicsansms", 30)
+
+# Load cherry image from a link
+CHERRY_IMAGE_URL = "https://pngimg.com/d/cherry_PNG632.png"  # Replace with your image URL
+import urllib.request
+cherry_image_path = "cherry.png"
+urllib.request.urlretrieve(CHERRY_IMAGE_URL, cherry_image_path)
+cherry_image = pygame.image.load(cherry_image_path)
+cherry_image = pygame.transform.scale(cherry_image, (BLOCK_SIZE, BLOCK_SIZE))
 
 def display_score(score):
     """Displays the player's score on the screen."""
     value = SCORE_FONT.render(f"Score: {score}", True, YELLOW)
     game_window.blit(value, [10, 10])
+
+def display_time(time_seconds):
+    """Displays the elapsed time on the screen."""
+    value = SCORE_FONT.render(f"Time: {time_seconds}s", True, YELLOW)
+    game_window.blit(value, [WIDTH - 150, 10])
 
 def draw_snake(block_size, snake_list):
     """Draws the snake on the screen."""
@@ -67,15 +80,20 @@ def game_loop():
     food_x = round(random.randrange(0, WIDTH - BLOCK_SIZE) / 10.0) * 10.0
     food_y = round(random.randrange(0, HEIGHT - BLOCK_SIZE) / 10.0) * 10.0
 
-    # Reward variables
-    food_counter = 0
-    rewards = []  # List to hold active rewards: each reward is a dict with x, y, spawn_time
+    # Cherry variables
+    cherry_active = False
+    cherry_x = None
+    cherry_y = None
+    cherry_spawn_time = 0
+    CHERRY_DURATION = 30000  # 30 seconds in milliseconds
+
+    # Time tracking
+    start_time = pygame.time.get_ticks()
 
     while not game_over:
-
         while game_close:
             game_window.fill(BLACK)
-            display_message("You Lost! Press Q-Quit or C-Play Again", RED)
+            display_message('YOU LOST! Press, Q to Quit or C to Play Again.', RED)
             display_score(snake_length - 1)
             pygame.display.update()
 
@@ -131,39 +149,39 @@ def game_loop():
 
         # Draw the snake
         draw_snake(BLOCK_SIZE, snake_list)
+
+        # Display score and time
         display_score(snake_length - 1)
+        elapsed_time = (pygame.time.get_ticks() - start_time) // 1000
+        display_time(elapsed_time)
 
         # Check if the snake eats the food
         if x == food_x and y == food_y:
             food_x = round(random.randrange(0, WIDTH - BLOCK_SIZE) / 10.0) * 10.0
             food_y = round(random.randrange(0, HEIGHT - BLOCK_SIZE) / 10.0) * 10.0
             snake_length += 1
-            food_counter += 1
-            if food_counter >= 10:
-                # Spawn a new reward
-                new_reward = {
-                    'x': round(random.randrange(0, WIDTH - BLOCK_SIZE) / 10.0) * 10.0,
-                    'y': round(random.randrange(0, HEIGHT - BLOCK_SIZE) / 10.0) * 10.0,
-                    'spawn_time': pygame.time.get_ticks()
-                }
-                rewards.append(new_reward)
-                food_counter = 0  # Reset counter
 
-        # Process rewards: check expiration and collisions
-        current_time = pygame.time.get_ticks()
-        for reward in rewards.copy():
-            # Check if reward has expired (10 seconds)
-            if current_time - reward['spawn_time'] >= 10000:
-                rewards.remove(reward)
+            # Spawn a cherry after eating food
+            if not cherry_active:
+                cherry_x = round(random.randrange(0, WIDTH - BLOCK_SIZE) / 10.0) * 10.0
+                cherry_y = round(random.randrange(0, HEIGHT - BLOCK_SIZE) / 10.0) * 10.0
+                cherry_spawn_time = pygame.time.get_ticks()
+                cherry_active = True
+
+        # Handle cherry logic
+        if cherry_active:
+            current_time = pygame.time.get_ticks()
+            if current_time - cherry_spawn_time <= CHERRY_DURATION:
+                # Draw cherry image
+                game_window.blit(cherry_image, (cherry_x, cherry_y))
+
+                # Check if the snake eats the cherry
+                if x == cherry_x and y == cherry_y:
+                    snake_length += 20  # Add 20 points
+                    cherry_active = False
             else:
-                # Check collision with snake head
-                if x == reward['x'] and y == reward['y']:
-                    snake_length += 10  # Increase score by 10
-                    rewards.remove(reward)
-
-        # Draw all active rewards
-        for reward in rewards:
-            pygame.draw.rect(game_window, BLUE, [reward['x'], reward['y'], BLOCK_SIZE, BLOCK_SIZE])
+                # Remove cherry if time exceeds 30 seconds
+                cherry_active = False
 
         # Update the display
         pygame.display.update()
