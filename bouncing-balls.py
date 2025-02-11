@@ -23,7 +23,7 @@ class Ball:
         self.speed_y = speed_y
 
     def update(self):
-        # Move the ball
+        # Ball moves
         self.x += self.speed_x
         self.y += self.speed_y
 
