@@ -59,7 +59,7 @@ while running:
     red_ball.draw()
     orange_ball.draw()
 
-    # Update display
+    # Display update
     pygame.display.flip()
     clock.tick(60)
 
