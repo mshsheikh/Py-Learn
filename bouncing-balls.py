@@ -36,7 +36,7 @@ class Ball:
     def draw(self):
         pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.radius)
 
-# Create ball objects
+# Ball (as Object)
 red_ball = Ball(100, 100, 30, RED, 5, 4)
 orange_ball = Ball(400, 300, 40, ORANGE, -4, 5)
 
