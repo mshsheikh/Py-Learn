@@ -27,7 +27,7 @@ class Ball:
         self.x += self.speed_x
         self.y += self.speed_y
 
-        # Bounce off walls
+        # Walls
         if self.x <= self.radius or self.x >= WIDTH - self.radius:
             self.speed_x *= -1
         if self.y <= self.radius or self.y >= HEIGHT - self.radius:
