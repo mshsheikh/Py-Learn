@@ -9,7 +9,7 @@ window.title = 'Bouncing Ball Physics'
 window.borderless = False
 window.fullscreen = False
 
-# Create ball with RIGIDBODY for proper physics
+# Ball with RIGIDBODY
 ball = Entity(
     model='sphere',
     color=color.red,
