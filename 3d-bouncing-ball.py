@@ -35,7 +35,7 @@ ground = Entity(
     eternal=True
 )
 
-# Create shadow
+# Shadow
 shadow = Entity(
     model=Circle(radius=0.3),
     color=color.black33,
