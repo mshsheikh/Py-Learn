@@ -56,7 +56,7 @@ def update():
         held_keys['w'] - held_keys['s']
     ).normalized()
 
-    # Apply horizontal movement directly to position (not velocity)
+    # Horizontal movement directly to position
     ball.x += move_dir.x * ball.speed * time.dt
     ball.z += move_dir.z * ball.speed * time.dt
 
