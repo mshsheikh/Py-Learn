@@ -18,7 +18,7 @@ ball = Entity(
     position=(0, 5, 0),
     shader=basic_lighting_shader,
     mass=1.0,
-    physics=True  # Enable physics engine integration
+    physics=True  # Physics engine ON
 )
 ball.velocity = Vec3(0, 0, 0)
 ball.speed = 8
