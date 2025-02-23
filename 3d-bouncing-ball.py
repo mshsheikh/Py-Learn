@@ -24,7 +24,7 @@ ball.velocity = Vec3(0, 0, 0)
 ball.speed = 8
 ball.bounce_damping = 0.7
 
-# Create thicker ground with BOX COLLIDER
+# Thicker ground with BOX COLLIDER
 ground = Entity(
     model='cube',
     scale=(20, 1, 20),
