@@ -12,7 +12,7 @@ RED = (213, 50, 80)
 GREEN = (0, 255, 0)
 BLUE = (50, 153, 213)
 
-# Define display dimensions
+# Display dimensions
 WIDTH = 600
 HEIGHT = 400
 
