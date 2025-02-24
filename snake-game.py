@@ -16,7 +16,7 @@ BLUE = (50, 153, 213)
 WIDTH = 600
 HEIGHT = 400
 
-# Create the game window
+# Game window
 game_window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Snake Game")
 
