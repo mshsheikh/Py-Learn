@@ -23,7 +23,7 @@ pygame.display.set_caption("Snake Game")
 # Clock to control the game's frame rate
 clock = pygame.time.Clock()
 
-# Define snake block size and speed
+# Snake block size and speed
 BLOCK_SIZE = 10
 SNAKE_SPEED = 15
 
