@@ -27,7 +27,7 @@ clock = pygame.time.Clock()
 BLOCK_SIZE = 10
 SNAKE_SPEED = 15
 
-# Define fonts for displaying messages
+# Fonts for displaying messages
 FONT_STYLE = pygame.font.SysFont("bahnschrift", 20)
 SCORE_FONT = pygame.font.SysFont("comicsansms", 30)
 
