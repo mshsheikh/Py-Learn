@@ -20,7 +20,7 @@ HEIGHT = 400
 game_window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Snake Game")
 
-# Define the clock to control the game's frame rate
+# Clock to control the game's frame rate
 clock = pygame.time.Clock()
 
 # Define snake block size and speed
