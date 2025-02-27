@@ -183,7 +183,7 @@ def game_loop():
                 # Remove cherry if time exceeds 30 seconds
                 cherry_active = False
 
-        # Update the display
+        # Display Update
         pygame.display.update()
 
         # Control the game speed
