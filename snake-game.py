@@ -186,7 +186,7 @@ def game_loop():
         # Display Update
         pygame.display.update()
 
-        # Control the game speed
+        # Game Speed Control
         clock.tick(SNAKE_SPEED)
 
     # Quit pygame
