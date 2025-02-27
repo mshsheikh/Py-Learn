@@ -175,7 +175,7 @@ def game_loop():
                 # Draw cherry image
                 game_window.blit(cherry_image, (cherry_x, cherry_y))
 
-                # Check if the snake eats the cherry
+                # Check for cherry eat
                 if x == cherry_x and y == cherry_y:
                     snake_length += 20  # Add 20 points
                     cherry_active = False
