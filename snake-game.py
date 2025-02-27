@@ -172,7 +172,7 @@ def game_loop():
         if cherry_active:
             current_time = pygame.time.get_ticks()
             if current_time - cherry_spawn_time <= CHERRY_DURATION:
-                # Draw cherry image
+                # Display Cherry 🍒
                 game_window.blit(cherry_image, (cherry_x, cherry_y))
 
                 # Check for cherry eat
