@@ -180,7 +180,7 @@ def game_loop():
                     snake_length += 20  # Add 20 points
                     cherry_active = False
             else:
-                # Remove cherry if time exceeds 30 seconds
+                # Remove cherry in 30 sec
                 cherry_active = False
 
         # Display Update
