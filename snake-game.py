@@ -189,7 +189,7 @@ def game_loop():
         # Game Speed Control
         clock.tick(SNAKE_SPEED)
 
-    # Quit pygame
+    # Quit
     pygame.quit()
     quit()
 
