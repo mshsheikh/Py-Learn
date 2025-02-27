@@ -168,7 +168,7 @@ def game_loop():
                 cherry_spawn_time = pygame.time.get_ticks()
                 cherry_active = True
 
-        # Handle cherry logic
+        # Cherry Logic
         if cherry_active:
             current_time = pygame.time.get_ticks()
             if current_time - cherry_spawn_time <= CHERRY_DURATION:
