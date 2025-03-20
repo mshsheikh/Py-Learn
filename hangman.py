@@ -2,7 +2,7 @@ import random
 
 def get_word():
     """Fetches a random word from a predefined list."""
-    words = ["python", "hangman", "challenge", "programming", "developer", "algorithm", "function", "variable", "import", "lambda"]
+    words = ["python", "hangman", "challenge", "programming", "developer", "algorithm", "function", "variable", "import", "lambda", "string"]
     return random.choice(words).upper()
 
 def display_hangman(tries):
